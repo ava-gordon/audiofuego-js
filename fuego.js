@@ -1,29 +1,40 @@
 // variable declarations
 
 {
+	// Need an annoying complex data structure to represent all data about a sound
+	//  This will make adding in sounds super easy though, so it's an overall plus
 	var all_sounds = {
-		kick: [],
-		snare: [],
-		hihat: [],
-		clap: []
+		kick: {
+			list: [],
+			audio: new buzz.sound("assets/kick.wav", { 
+				preload: true,
+				webAudioApi: true })
+		},
+		snare: {
+			list: [],
+			audio: new buzz.sound("assets/snare.wav", { 
+				preload: true,
+				webAudioApi: true  })
+		},
+		hihat: {
+			list: [],
+			audio: new buzz.sound("assets/hihat.wav", { 
+				preload: true,
+				webAudioApi: true  })
+		},
+		clap: {
+			list: [],
+			audio: new buzz.sound("assets/clap.wav", { 
+				preload: true,
+				webAudioApi: true  })
+		}
 	}
 	var bpm = 120;
-	var kick_sound = new buzz.sound("assets/kick", {
-		formats: ["ogg", "mp3"]
-	});
-	var snare_sound = new buzz.sound("assets/snare", {
-		formats: ["ogg", "mp3"]
-	});
-	var hihat_sound = new buzz.sound("assets/hihat", {
-		formats: ["ogg", "mp3"]
-	});
-	var clap_sound = new buzz.sound("assets/clap", {
-		formats: ["ogg", "mp3"]
-	});
 	var paused = false;
 	var beat_interval = 60/bpm; //gives us seconds per beat
-	var quarter_interval = beat_interval/4; //Length of a quarter note
+	var quarter_interval = (beat_interval/4)*1000; //Length of a quarter note in ms
 	var global_note = 0;
+	var last_note = 0;
 	var steps = 16;
 }
 
@@ -32,7 +43,7 @@ $(function(){
 		alert("Use an HTML5 compliant browser!");
 	} else {
 		setup_grid();
-		//var runtime = setInterval(function() { run(); }, quarter_interval);
+		setInterval(function() { run(); }, quarter_interval);
 	}
 
 })
@@ -40,7 +51,7 @@ $(function(){
 function setup_grid () {
 	for (sound in all_sounds) {
 		for (var i = 0; i < steps; i++){
-			all_sounds[sound][i] = false;
+			all_sounds[sound]["list"][i] = false;
 		}
 	}
 	render_steps();
@@ -48,6 +59,40 @@ function setup_grid () {
 
 function run () {
 
+	$(".beat-grid").each(function() {
+		var num = $(this).attr("data-num");
+		var s = $(this).attr("data-sound");
+		if (num == global_note){
+			$(this).removeClass("btn-default");
+			$(this).removeClass("btn-success");
+			if (all_sounds[s]["list"][global_note]){
+				$(this).addClass("btn-danger");
+			} else {
+				$(this).addClass("btn-warning");
+			}
+		} else if (num == last_note) { // Reset the previous notes to their normal color
+			$(this).removeClass("btn-danger");
+			$(this).removeClass("btn-warning");
+			if (all_sounds[s]["list"][last_note]){
+				$(this).addClass("btn-success");
+			} else {
+				$(this).addClass("btn-default");
+			}
+		}
+	});
+
+	for(sound in all_sounds){
+		if(all_sounds[sound]["list"][global_note]){
+			all_sounds[sound]["audio"].stop();
+			all_sounds[sound]["audio"].play();
+
+		}
+	}
+
+	// Last thing to do:
+	last_note = global_note; 
+	global_note++;
+	if(global_note >= steps) global_note = 0;
 }
 
 function pause () {
@@ -58,29 +103,30 @@ function reset () {
 
 }
 
-function select_note ( num, sound, elem ) {
-	console.log("selected: " + sound + ": "+num);
-	if (all_sounds[sound][num]){
+function select_note ( elem ) {
+	var sound = elem.attr("data-sound");
+	var num = elem.attr("data-num");
+	if (all_sounds[sound]["list"][num]){
 		elem.removeClass("btn-success");
 		elem.addClass("btn-default");
-		all_sounds[sound][num] = false;
+		all_sounds[sound]["list"][num] = false;
 	} else {
 		elem.addClass("btn-success");
 		elem.removeClass("btn-default");
-		all_sounds[sound][num] = true;
+		all_sounds[sound]["list"][num] = true;
 	}
 }
 
 function render_steps () {
-	for (sound in all_sounds){
-		for (var i = 0; i < steps; i++){
-			var html_string = '<button class="beat-grid btn btn-default"></button>';
+	for (var i = 0; i < steps; i++){
+		for (sound in all_sounds){
+			var html_string = '<button class="beat-grid btn btn-default"'
+			+ 'data-sound="' + sound + '" '+ 'data-num="' + i + '"'
+			+ '></button>';
 			el = $(html_string);
-			var num = i;
-			var s = sound;
 			el.click(function(){
-				select_note (num, s, $(this));
-			})
+				select_note ($(this));
+			});
 			var row_name = "#"+sound+"-notes";
 			$(row_name).append(el);
 		}
