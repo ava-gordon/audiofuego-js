@@ -7,26 +7,32 @@
 	<body>
 		<link rel="stylesheet" type="text/css" href="fuego.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.9/buzz.min.js"></script>
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="fuego.js"></script>
-	<h1> Audio Fuego </h1>
-   tempo: <input id="tempo" type="range" name="tempo" min="1" max="300" value="" size="3"> 
-	<table>
-		<tr>
-			<td bgcolor = "#D8D8D8">kick</td>
-		</tr>
-		<tr>
-			<td bgcolor = "#D8D8D8">snare</td>
-		</tr>
-		<tr>
-			<td bgcolor = "#D8D8D8">hihat</td>
-		</tr>
-		<tr>
-			<td bgcolor = "#D8D8D8">clap</td>
-		</tr>
-	</table>		
+		<script src="./fuego.js"></script>
+		<h1> Audio Fuego </h1>
+		<div id="content">
+			<div id="sidebar">
+				
+			</div>
+			<div id="note-rows">
+				<div id="kick-notes" class="note-row">
+					
+				</div>
+				<div id="snare-notes" class="note-row">
+
+				</div>
+				<div id="hihat-notes" class="note-row">
+
+				</div>
+				<div id="clap-notes" class="note-row">
+
+				</div>
+			</div>
+		</div>
+
+
 	</body>
 
 
