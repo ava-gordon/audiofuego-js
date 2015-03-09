@@ -1,33 +1,145 @@
 <!DOCTYPE html>
 <html>
 	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Audio Fuego!</title>
-		<meta charset="utf-8"s>
-	</head>
-	<body>
-		<link rel="stylesheet" type="text/css" href="fuego.css">
+
+
+<!--		<link rel="stylesheet" type="text/css" href="fuego.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.9/buzz.min.js"></script>
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="fuego.js"></script>
-	<h1> Audio Fuego </h1>
-   tempo: <input id="tempo" type="range" name="tempo" min="1" max="300" value="" size="3"> 
-	<table bordercolor = "white">
-		<tr>
-			<td bgcolor = "#D8D8D8">kick</td>
-		</tr>
-		<tr>
-			<td bgcolor = "#D8D8D8">snare</td>
-		</tr>
-		<tr>
-			<td bgcolor = "#D8D8D8">hihat</td>
-		</tr>
-		<tr>
-			<td bgcolor = "#D8D8D8">clap</td>
-		</tr>
-	</table>		
-	</body>
+		<script src="fuego.js"></script> --> 
+		
+		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript" charset="utf-8"></script>
+    	<style type="text/css" media="screen"> 
+        
+        table.square-select td{
+            background: #D3D3D3; /* Light background color */
+            min-width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        table.square-select td.label {
+            height: 16px;
+            padding: 4px;
+            font-size: 14px;
+        }
+        table.square-select td.dark {
+            background: #A8A8A8 !important; /* Dark background color */
+        }
+        .play-anchors a{
+            text-decoration: none;
+            width: 48px;
+            text-align: center;
+            display: inline-block;
+        }
 
-
+    </style>
+</head>
+<body>
+    <h1>Audio Fuego!</h1>
+    <div>
+        <label for="tempo">tempo: </label>
+        <input type="range" min="10" value="10" max="100" step="5" id="tempo">
+    </div>
+    <br>
+    <table class="square-select">
+        <tbody>
+            <tr>
+                <td class="label">kick</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="label">snare</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="label">hihat</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="label">clap</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <div class="play-anchors">
+        <a href="#">&lt;&lt;</a>
+        <a href="#">play</a>
+        <a href="#">pause</a>
+        <a href="#">stop</a>
+    </div>
+    <script>
+        $(document).ready(function(){       // When the document is ready
+            $("table.square-select td:not(td.label)").click(function(){ // When the td element, which is not a label, is clicked
+                $(this).toggleClass("dark");    // If it has a class "dark", remove it. If it doesn't, add it.
+                                                // Dark background color for class "dark" is defined in CSS on line 21
+            });
+        });
+    </script>
+ </body>
 </html>
