@@ -30,12 +30,11 @@
 		}
 	}
 	var bpm = 120;
-	var paused = false;
-	var beat_interval = 60/bpm; //gives us seconds per beat
-	var quarter_interval = (beat_interval/4)*1000; //Length of a quarter note in ms
 	var global_note = 0;
 	var last_note = 0;
 	var steps = 16;
+	var paused = false;
+	var runtime;
 }
 
 $(function(){
@@ -43,7 +42,15 @@ $(function(){
 		alert("Use an HTML5 compliant browser!");
 	} else {
 		setup_grid();
-		setInterval(function() { run(); }, quarter_interval);
+		$("#reset").click(function () { reset_grid(); });
+		$("#pause").click(function () { pause(); })
+		compute_tempo();
+		
+		document.getElementById("tempo-slider").oninput = function() {
+			bpm = $("#tempo-slider").val();
+			$("#tempo-label").text("Tempo: " + bpm);
+			compute_tempo();
+		};
 	}
 
 })
@@ -96,11 +103,33 @@ function run () {
 }
 
 function pause () {
-
+	if(paused){
+		compute_tempo();
+		paused = false;
+	} else {
+		clearInterval(runtime);
+		paused = true;
+	}
 }
 
-function reset () {
+function compute_tempo () {
+	var beat_interval = 60/bpm; //gives us seconds per beat
+	var quarter_interval = (beat_interval/4)*1000; //Length of a quarter note in ms
+	clearInterval(runtime);
+	runtime = setInterval(function() { run(); }, quarter_interval);
+}
 
+function reset_grid () {
+	for (sound in all_sounds){
+		for (var i = 0; i < steps; i++){
+			all_sounds[sound]["list"][i] = false;
+		}
+	}
+	$(".beat-grid").each(function() {
+		$(this).removeClass("btn-success");
+		$(this).removeClass("btn-warning");
+		$(this).addClass("btn-default");
+	});
 }
 
 function select_note ( elem ) {
@@ -126,6 +155,9 @@ function render_steps () {
 			el = $(html_string);
 			el.click(function(){
 				select_note ($(this));
+			});
+			el.mouseup(function() {
+				$(this).blur();
 			});
 			var row_name = "#"+sound+"-notes";
 			$(row_name).append(el);

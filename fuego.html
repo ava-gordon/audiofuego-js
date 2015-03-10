@@ -5,35 +5,39 @@
 		<meta charset="utf-8"s>
 	</head>
 	<body>
-		<link rel="stylesheet" type="text/css" href="fuego.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<!-- <link rel="stylesheet" href="bmd.css"> -->
+		<link rel="stylesheet" type="text/css" href="fuego.css">
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.9/buzz.min.js"></script>
 		<script src="./fuego.js"></script>
-		<h1> Audio Fuego </h1>
+		<h1 style="text-align: center"> Audio Fuego </h1>
 		<div id="content">
-			<div id="topbar">
-				
-			</div>
 			<div id="note-rows">
 				<div id="kick-notes" class="note-row">
-					
+					<div class="sound-label">Kick</div>
 				</div>
 				<div id="snare-notes" class="note-row">
-
+					<div class="sound-label">Snare</div>
 				</div>
 				<div id="hihat-notes" class="note-row">
-
+					<div class="sound-label">Hi-Hat</div>
 				</div>
 				<div id="clap-notes" class="note-row">
-
+					<div class="sound-label">Clap</div>
+				</div>
+			</div>
+			<div id="bottom-bar">
+				<div id="btngroup"class="btn-group" role="group">
+					<button id="pause" class="btn btn-default">Pause</button>
+					<button id="reset" class="btn btn-default">Reset</button>
+				</div>
+				<div id="tempodiv">
+					<p id="tempo-label" class="tempo"> Tempo: 120 </p>
+					<input id="tempo-slider" class="tempo" type="range" min="60" max="200" step="1" value="120">
 				</div>
 			</div>
 		</div>
-
-
 	</body>
-
-
 </html>
