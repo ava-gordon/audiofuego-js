@@ -1,41 +1,40 @@
 // variable declarations
 
-{
-	// Need an annoying complex data structure to represent all data about a sound
-	//  This will make adding in sounds super easy though, so it's an overall plus
-	var all_sounds = {
-		kick: {
-			list: [],
-			audio: new buzz.sound("assets/kick.wav", { 
-				preload: true,
-				webAudioApi: true })
-		},
-		snare: {
-			list: [],
-			audio: new buzz.sound("assets/snare.wav", { 
-				preload: true,
-				webAudioApi: true  })
-		},
-		hihat: {
-			list: [],
-			audio: new buzz.sound("assets/hihat.wav", { 
-				preload: true,
-				webAudioApi: true  })
-		},
-		clap: {
-			list: [],
-			audio: new buzz.sound("assets/clap.wav", { 
-				preload: true,
-				webAudioApi: true  })
-		}
+// Need an annoying complex data structure to represent all data about a sound
+//  This will make adding in sounds super easy though, so it's an overall plus
+var all_sounds = {
+	kick: {
+		list: [],
+		audio: new buzz.sound("assets/kick.wav", { 
+			preload: true,
+			webAudioApi: true })
+	},
+	snare: {
+		list: [],
+		audio: new buzz.sound("assets/snare.wav", { 
+			preload: true,
+			webAudioApi: true  })
+	},
+	hihat: {
+		list: [],
+		audio: new buzz.sound("assets/hihat.wav", { 
+			preload: true,
+			webAudioApi: true  })
+	},
+	clap: {
+		list: [],
+		audio: new buzz.sound("assets/clap.wav", { 
+			preload: true,
+			webAudioApi: true  })
 	}
-	var bpm = 120;
-	var global_note = 0;
-	var last_note = 0;
-	var steps = 16;
-	var paused = false;
-	var runtime;
 }
+var bpm = 120;
+var global_note = 0;
+var last_note = 0;
+var steps = 16;
+var paused = false;
+var runtime;
+
 
 $(function(){
 	if(!buzz.isSupported()){
